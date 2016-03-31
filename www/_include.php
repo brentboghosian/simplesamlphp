@@ -81,12 +81,23 @@ function SimpleSAML_error_handler($errno, $errstr, $errfile = null, $errline = 0
 
 set_error_handler('SimpleSAML_error_handler');
 
-$configdir = SimpleSAML\Utils\Config::getConfigDir();
-if (!file_exists($configdir.'/config.php')) {
-    $message = "You have not yet created the simpleSAMLphp configuration files - see: http://rnd.feide.no/content/installing-simplesamlphp#id434777";
-    error_log($message);
-    exit(1);
+/* Get environment variable that specifies an alernate location for the configuration files. */
+$configdir = getenv("SIMPLESAMLPHP_CONFIG_DIR");
+
+/* Check if environment variable is set and if the directory exists.
+ * If neither condition is met use the default configuration directory.
+ */
+if (empty($configdir) || !file_exists($configdir)) {
+	$configdir = SimpleSAML\Utils\Config::getConfigDir();
+	if (!file_exists($configdir . '/config.php')) {
+		$message = "You have not yet created the simpleSAMLphp configuration files - see: http://rnd.feide.no/content/installing-simplesamlphp#id434777";
+		error_log($message);
+		exit(1);
+	}
 }
+
+/* Set the configuration directory to the new location. */
+SimpleSAML_Configuration::setConfigDir($configdir);
 
 // set the timezone
 SimpleSAML\Utils\Time::initTimezone();
