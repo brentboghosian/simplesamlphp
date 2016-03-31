@@ -63,6 +63,12 @@ The `metarefresh` module is the preferred method for doing this.
 Please see the [metarefresh documentation](simplesamlphp-automated_metadata).
 
 
+Configurable config directory location
+--------------------------------------
+
+An environment variable can be used to specify the location of the configuration directory.  Use the environment variable SIMPLESAMLPHP_CONFIG_DIR to specifiy an absolute path to the SimpleSAMLphp configuration directory.  It is possible to now have a single instance of the SimpleSAMLphp library to serve multiple client configuration setups, by using combining Apache Alias and SetEnv directives.
+
+
 
 Using simpleSAMLphp on a web server requiring the use of a web proxy
 --------------------------------------------------------------------
