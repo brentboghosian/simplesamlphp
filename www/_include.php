@@ -83,9 +83,8 @@ set_error_handler('SimpleSAML_error_handler');
 
 $configdir = SimpleSAML\Utils\Config::getConfigDir();
 if (!file_exists($configdir.'/config.php')) {
-    header('Content-Type: text/plain');
-    echo("You have not yet created the SimpleSAMLphp configuration files.\n");
-    echo("See: https://simplesamlphp.org/docs/devel/simplesamlphp-install-repo\n");
+    $message = "You have not yet created the simpleSAMLphp configuration files - see: http://rnd.feide.no/content/installing-simplesamlphp#id434777";
+    error_log($message);
     exit(1);
 }
 
